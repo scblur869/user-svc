@@ -15,7 +15,7 @@ func GetAllUsers() []_models.EMPLOYEE {
 
 	var employee _models.EMPLOYEE
 	var employeeList []_models.EMPLOYEE
-	query := "SELECT id, first_name, last_name, email, street_address, gender, department FROM employee"
+	query := "SELECT id, first_name, last_name, email, street_address, gender, department, personelid, phone FROM employee"
 	results, err := db.Query(query)
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
@@ -29,9 +29,11 @@ func GetAllUsers() []_models.EMPLOYEE {
 		var street_address string
 		var gender string
 		var department string
+		var personelId string
+		var phone string
 
 		// for each row, scan the result into our tag composite object
-		err = results.Scan(&id, &first_name, &last_name, &email, &street_address, &gender, &department)
+		err = results.Scan(&id, &first_name, &last_name, &email, &street_address, &gender, &department, &personelId, &phone)
 		if err != nil {
 			fmt.Println(err.Error())
 		}
@@ -42,7 +44,8 @@ func GetAllUsers() []_models.EMPLOYEE {
 		employee.Street_Address = street_address
 		employee.Gender = gender
 		employee.Department = department
-
+		employee.Personel_Id = personelId
+		employee.Phone = phone
 		employeeList = append(employeeList, employee)
 
 	}
@@ -59,7 +62,7 @@ func SelectByParam(column string, param string) []_models.EMPLOYEE {
 
 	var employee _models.EMPLOYEE
 	var employeeList []_models.EMPLOYEE
-	query := "SELECT id, first_name, last_name, email, street_address, gender, department FROM employee where " + column + " = ?"
+	query := "SELECT id, first_name, last_name, email, street_address, gender, department, personelid, phone FROM employee where " + column + " = ?"
 	results, err := db.Query(query, param)
 	if err != nil {
 		fmt.Println(err.Error()) // proper error handling instead of panic in your app
@@ -73,9 +76,11 @@ func SelectByParam(column string, param string) []_models.EMPLOYEE {
 		var street_address string
 		var gender string
 		var department string
+		var personelId string
+		var phone string
 
 		// for each row, scan the result into our tag composite object
-		err = results.Scan(&id, &first_name, &last_name, &email, &street_address, &gender, &department)
+		err = results.Scan(&id, &first_name, &last_name, &email, &street_address, &gender, &department, &personelId, &phone)
 		if err != nil {
 			fmt.Println(err.Error())
 		}
@@ -86,7 +91,8 @@ func SelectByParam(column string, param string) []_models.EMPLOYEE {
 		employee.Street_Address = street_address
 		employee.Gender = gender
 		employee.Department = department
-
+		employee.Personel_Id = personelId
+		employee.Phone = phone
 		employeeList = append(employeeList, employee)
 
 	}
