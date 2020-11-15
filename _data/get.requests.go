@@ -15,7 +15,7 @@ func GetAllUsers() []_models.EMPLOYEE {
 
 	var employee _models.EMPLOYEE
 	var employeeList []_models.EMPLOYEE
-	query := "SELECT id, first_name, last_name, email, street_address, gender, department, personelid, phone FROM employee"
+	query := "SELECT id, first_name, last_name, email, street_address, gender, department, personel_id, phone FROM employee"
 	results, err := db.Query(query)
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
@@ -62,7 +62,7 @@ func SelectByParam(column string, param string) []_models.EMPLOYEE {
 
 	var employee _models.EMPLOYEE
 	var employeeList []_models.EMPLOYEE
-	query := "SELECT id, first_name, last_name, email, street_address, gender, department, personelid, phone FROM employee where " + column + " = ?"
+	query := "SELECT id, first_name, last_name, email, street_address, gender, department, personel_id, phone FROM employee where " + column + " = ?"
 	results, err := db.Query(query, param)
 	if err != nil {
 		fmt.Println(err.Error()) // proper error handling instead of panic in your app
