@@ -3,7 +3,7 @@ package _data
 import (
 	"database/sql"
 	"fmt"
-	"local/registration-svc/_models"
+	"local/user-svc/_models"
 	"log"
 )
 
@@ -13,8 +13,6 @@ func UpdateEmployeeInfo(employee _models.EMPLOYEE, id int) {
 	if err != nil {
 		fmt.Println(err)
 	}
-
-	var employee _models.EMPLOYEE
 
 	tx, err := db.Begin()
 	if err != nil {

@@ -23,7 +23,7 @@ func InitializeUserDatabase() {
 		fmt.Println(err)
 	}
 	query := `CREATE TABLE IF NOT EXISTS employee(
-		   id int primary key auto_increment,
+		   id INTEGER PRIMARY KEY AUTOINCREMENT,
 			 first_name text,
 			 last_name text,
 			 street_address text,
@@ -36,11 +36,12 @@ func InitializeUserDatabase() {
 			 photo_id text,
 			 attribute_1 text,
 			 attribute_2 text,
-			 created_at datetime default CURRENT_TIMESTAMP,
-			 updated_at datetime default CURRENT_TIMESTAMP)`
+			 created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			 updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)`
 
 	stmt, err :=
 		database.Prepare(query)
+	if err != nil {
 		fmt.Println(err)
 	}
 	stmt.Exec()

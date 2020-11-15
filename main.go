@@ -2,8 +2,8 @@ package main
 
 // capturetime (datetime), temperature (string), mask (boolean), picture (base 64 string)
 import (
-	"local/registration-svc/_data"
-	"local/registration-svc/_services"
+	"local/user-svc/_data"
+	"local/user-svc/_services"
 
 	"github.com/gin-gonic/gin"
 )

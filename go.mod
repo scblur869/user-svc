@@ -1,4 +1,4 @@
-module local/registration-svc
+module local/user-svc
 
 go 1.15
 

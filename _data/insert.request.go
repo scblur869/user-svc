@@ -3,7 +3,7 @@ package _data
 import (
 	"database/sql"
 	"fmt"
-	"local/registration-svc/_models"
+	"local/user-svc/_models"
 	"log"
 
 	_ "github.com/mattn/go-sqlite3"

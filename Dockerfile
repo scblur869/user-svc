@@ -1,6 +1,6 @@
 FROM golang:latest
 
 WORKDIR /go/src/app
-COPY registration-svc .
+COPY user-svc .
 
-CMD ["./registration-svc"]
+CMD ["./user-svc"]

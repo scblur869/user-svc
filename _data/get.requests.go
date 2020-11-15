@@ -3,7 +3,7 @@ package _data
 import (
 	"database/sql"
 	"fmt"
-	"local/registration-svc/_models"
+	"local/user-svc/_models"
 )
 
 func GetAllUsers() []_models.EMPLOYEE {
