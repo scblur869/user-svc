@@ -5,6 +5,7 @@ import (
 	"local/user-svc/_data"
 	"local/user-svc/_services"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,5 +20,6 @@ func main() {
 	r.POST("/api/v1/remove-user", _services.RemoveEmployeeById) // accepts registration request from the camera
 	r.POST("/api/v1/add-user", _services.ImportRequest)
 	r.POST("/api/v1/update-user", _services.UpdateEmployeeData)
+	r.Use(cors.Default())
 	r.Run("0.0.0.0:8082") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
