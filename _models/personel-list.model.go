@@ -1,5 +1,28 @@
 package _models
 
+type PersonListResponse struct {
+	Name    string         `json:"name"`
+	Data    PersonListData `json:"data"`
+	Code    int            `json:"code"`
+	Message string         `json:"message"`
+}
+
+type PersonListData struct {
+	PersonType    int          `json:"persontype"`
+	Action        string       `json:"action"`
+	PageNo        int          `json:"pageno"`
+	PageSize      int          `json:"pagesize"`
+	PageCount     int          `json:"pagecount"`
+	PersonCount   int          `json:"personcount"`
+	PersonListNum int          `json:"personlistnum"`
+	PersonList    []PersonList `json:"personlist"`
+}
+
+type PersonList struct {
+	PersonId   string `json:"personid"`
+	PersonName string `json:"personname"`
+}
+
 type PersonListRequest struct {
 	Name      string                `json:"name"`
 	UUID      string                `json:"uuid"`
@@ -54,4 +77,18 @@ type PersonExtension struct {
 	PersonData3       string `json:"persondata3"`
 	PersonData4       string `json:"persondata4"`
 	PersonData5       string `json:"persondata5"`
+}
+
+type DEVICE struct {
+	TimeStamp   int    `json:"timestamp"`
+	ID          string `json:"deviceid"`
+	UUID        string `json:"deviceuuid"`
+	IP          string `json:"deviceip"`
+	MAC         string `json:"devicemac"`
+	CoreVersion string `json:"coreversion"`
+	WebVersion  string `json:"webversion"`
+	DeviceType  int    `json:"devicetype"`
+	ChannelNo   int    `json:"channelno"`
+	VersionDate string `json:"versiondate"`
+	Created     string `json:"created"`
 }

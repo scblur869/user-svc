@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"local/user-svc/_models"
 	"log"
 	"net/http"
 	"strconv"

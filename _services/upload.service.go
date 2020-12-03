@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"fmt"
+	"local/user-svc/_http"
 	"local/user-svc/_models"
 	"net/http"
 	"strconv"
@@ -14,7 +15,8 @@ import (
 func UploadUserDataToDevice(c *gin.Context) {
 
 	var employeeList []_models.EMPLOYEE
-
+	var data []_models.DEVICE
+	var employee _models.EMPLOYEE
 	if err := c.ShouldBindJSON(&employee); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		fmt.Println(err)
