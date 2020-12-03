@@ -31,9 +31,9 @@ func RemoveEmployeeById(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		fmt.Println(err)
 		return
-		_data.RemoveEmployeeById(remove.Id)
-		c.JSON(http.StatusOK, remove)
 	}
+	_data.RemoveEmployeeById(remove.Id)
+	c.JSON(http.StatusOK, remove)
 }
 
 func UpdateEmployeeData(c *gin.Context) {
