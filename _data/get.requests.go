@@ -18,7 +18,7 @@ func GetAllUsers() []_models.EMPLOYEE {
 	query := "SELECT id, first_name, last_name, email, street_address, gender, department, personel_id, phone, birthdate, photo_id, attribute_1, attribute_2 FROM employee"
 	results, err := db.Query(query)
 	if err != nil {
-		panic(err.Error()) // proper error handling instead of panic in your app
+		fmt.Print(err.Error()) // proper error handling instead of panic in your app
 	}
 
 	for results.Next() {
