@@ -29,6 +29,6 @@ func main() {
 	r.POST("/api/v1/remove-user", _services.RemoveEmployeeById) // accepts registration request from the camera
 	r.POST("/api/v1/add-user", _services.ImportRequest)
 	r.POST("/api/v1/update-user", _services.UpdateEmployeeData)
-
-	r.Run("0.0.0.0:8082") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.POST("/api/v1/get-personlist", _services.GetPersonListOnDevice) // gets the personlist from the device
+	r.Run("0.0.0.0:8082")                                             // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }

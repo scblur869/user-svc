@@ -11,17 +11,18 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"time"
 )
 
-func GetPersonListFromDevice(deviceInfo _models.DEVICE) _models.PersonListResponse {
-	url := "http://" + deviceInfo.IP + ":8011/Request"
-	uuid := deviceInfo.UUID
+func GetPersonListFromDevice(payload _models.DeviceAuth) _models.PersonListResponse {
+	url := "http://" + payload.DeviceIP + ":8011/Request"
 	var personList _models.PersonListResponse
 
-	UserName := "admin"
-	PassWord := "admin"
-	ts := strconv.Itoa(deviceInfo.TimeStamp)
-	strData := []byte(uuid + ":" + UserName + ":" + PassWord + ":" + ts)
+	UserName := payload.User
+	PassWord := payload.Password
+	uuid := payload.UUID
+	ts := int(time.Now().Unix())
+	strData := []byte(uuid + ":" + UserName + ":" + PassWord + ":" + strconv.Itoa(ts))
 	hasher := md5.New()
 	hasher.Write([]byte(strData))
 	signedData := hex.EncodeToString(hasher.Sum(nil))
@@ -62,8 +63,8 @@ func GetPersonListFromDevice(deviceInfo _models.DEVICE) _models.PersonListRespon
 	return personList
 }
 
-func AddPersonListToDevice(deviceInfo _models.DEVICE, plist _models.PersonListRequest) string {
-	url := "http://" + deviceInfo.IP + ":8011/Request"
+func AddPersonListToDevice(payload _models.ListPayload, plist _models.PersonListRequest) string {
+	url := "http://" + deviceIp + ":8011/Request"
 
 	jsonBody, err := json.Marshal(&plist)
 	if err != nil {

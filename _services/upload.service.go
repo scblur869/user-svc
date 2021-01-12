@@ -8,34 +8,42 @@ import (
 	"local/user-svc/_models"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
+func SignRequest(payload _models.ListPayload) string {
+	UserName := payload.User
+	PassWord := payload.Password
+
+	uuid := payload.UUID
+	ts := int(time.Now().Unix())
+	strData := []byte(uuid + ":" + UserName + ":" + PassWord + ":" + strconv.Itoa(ts))
+	hasher := md5.New()
+	hasher.Write([]byte(strData))
+	signedData := hex.EncodeToString(hasher.Sum(nil))
+	return signedData
+}
+
 func UploadUserDataToDevice(c *gin.Context) {
 
-	var employeeList []_models.EMPLOYEE
-	var data []_models.DEVICE
-	var employee _models.EMPLOYEE
-	if err := c.ShouldBindJSON(&employee); err != nil {
+	var payload _models.ListPayload
+
+	if err := c.ShouldBindJSON(&payload); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		fmt.Println(err)
 		return
 	}
 	var addPersonRequest _models.PersonListRequest
-	UserName := "admin"
-	PassWord := "admin"
-	ts := strconv.Itoa(data[0].TimeStamp)
-	strData := []byte(data[0].UUID + ":" + UserName + ":" + PassWord + ":" + ts)
-	hasher := md5.New()
-	hasher.Write([]byte(strData))
-	signedData := hex.EncodeToString(hasher.Sum(nil))
 
-	for _, employee := range employeeList {
+	signedData := SignRequest(payload)
+
+	for _, employee := range payload.Employee {
 		addPersonRequest.Name = "personListRequest"
-		addPersonRequest.UUID = data[0].UUID
-		addPersonRequest.Session = data[0].UUID + "_" + strconv.Itoa(data[0].TimeStamp)
-		addPersonRequest.Timestamp = data[0].TimeStamp
+		addPersonRequest.UUID = uuid
+		addPersonRequest.Session = `"` + uuid + `_` + strconv.Itoa(ts) + `"`
+		addPersonRequest.Timestamp = ts
 		addPersonRequest.Sign = signedData
 		addPersonRequest.Data.Action = "addPerson"
 		addPersonRequest.Data.PersonType = 2
@@ -59,6 +67,6 @@ func UploadUserDataToDevice(c *gin.Context) {
 		addPersonRequest.Data.PersonInfo.Label = "HR Verified"
 		addPersonRequest.Data.PersonInfo.PersonPhoto = employee.Photo_Id
 		addPersonRequest.Data.PersonInfo.FeatureValue = "0"
-		_http.AddPersonListToDevice(data[0], addPersonRequest)
+		_http.AddPersonListToDevice(payload.DeviceIP, addPersonRequest)
 	}
 }

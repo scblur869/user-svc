@@ -13,16 +13,16 @@ const dbpath = "data/db"
 const userdb = dbpath + "/user.db"
 
 func ImportRequest(c *gin.Context) {
-	var employee []_models.EMPLOYEE
+	var payload _models.ListPayload
 
-	if err := c.ShouldBindJSON(&employee); err != nil {
+	if err := c.ShouldBindJSON(&payload); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		fmt.Println(err)
 		return
 	}
 
-	_data.ImportUserRequest(employee)
-	c.JSON(http.StatusOK, employee)
+	_data.ImportUserRequest(payload.Employee)
+	c.JSON(http.StatusOK, payload.User)
 }
 
 func RemoveEmployeeById(c *gin.Context) {

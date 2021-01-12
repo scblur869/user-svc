@@ -16,6 +16,18 @@ type EMPLOYEE struct {
 	Attribute_2    string `json:"attribute2"`
 }
 
+type ListPayload struct {
+	Employee []EMPLOYEE `json:"id"`
+	Auth     DeviceAuth `json:"auth"`
+}
+
+type DeviceAuth struct {
+	User     string `json:"user"`
+	Password string `json:"password"`
+	UUID     string `json:"uuid"`
+	DeviceIP string `json:"deviceip"`
+}
+
 type ID struct {
 	Id int `json:"id"`
 }
