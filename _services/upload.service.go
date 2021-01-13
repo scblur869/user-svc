@@ -59,8 +59,8 @@ func UploadUserDataToDevice(c *gin.Context) {
 		addPersonRequest.Data.PersonInfo.StartTime = "2019-01-01 00:00:00"
 		addPersonRequest.Data.PersonInfo.EndTime = "2021-01-01 00:00:00"
 		addPersonRequest.Data.PersonInfo.Label = "HR Verified"
-		//	addPersonRequest.Data.PersonInfo.PersonPhoto = employee.Photo_Id
-		//	addPersonRequest.Data.PersonInfo.FeatureValue = "ZW1wbG95ZWU="
+		addPersonRequest.Data.PersonInfo.PersonPhoto = employee.Photo_Id
+		addPersonRequest.Data.PersonInfo.FeatureValue = "ZW1wbG95ZWU="
 		_http.AddPersonListToDevice(payload, addPersonRequest)
 	}
 }
