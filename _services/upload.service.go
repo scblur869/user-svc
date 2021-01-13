@@ -14,8 +14,13 @@ import (
 )
 
 func UploadUserDataToDevice(c *gin.Context) {
-
 	var payload _models.ListPayload
+	if err := c.ShouldBindJSON(&payload); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		fmt.Println(err)
+		return
+	}
+
 	UserName := payload.Auth.User
 	PassWord := payload.Auth.Password
 
@@ -26,11 +31,6 @@ func UploadUserDataToDevice(c *gin.Context) {
 	hasher.Write([]byte(strData))
 	signedData := hex.EncodeToString(hasher.Sum(nil))
 
-	if err := c.ShouldBindJSON(&payload); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		fmt.Println(err)
-		return
-	}
 	var addPersonRequest _models.PersonListRequest
 
 	for _, employee := range payload.Employee {
