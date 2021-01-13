@@ -17,7 +17,7 @@ type EMPLOYEE struct {
 }
 
 type ListPayload struct {
-	Employee []EMPLOYEE `json:"id"`
+	Employee []EMPLOYEE `json:"employee"`
 	Auth     DeviceAuth `json:"auth"`
 }
 
