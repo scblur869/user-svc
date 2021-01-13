@@ -22,7 +22,7 @@ func ImportRequest(c *gin.Context) {
 	}
 
 	_data.ImportUserRequest(payload.Employee)
-	c.JSON(http.StatusOK, payload.User)
+	c.JSON(http.StatusOK, payload.Auth.User)
 }
 
 func RemoveEmployeeById(c *gin.Context) {

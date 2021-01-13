@@ -10,7 +10,7 @@ import (
 )
 
 func GetPersonListOnDevice(c *gin.Context) {
-	auth := _models.DeviceAuth
+	var auth _models.DeviceAuth
 	if err := c.ShouldBindJSON(&auth); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		fmt.Println(err)

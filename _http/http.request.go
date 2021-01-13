@@ -31,8 +31,8 @@ func GetPersonListFromDevice(payload _models.DeviceAuth) _models.PersonListRespo
 	{
 	"Name": "personListRequest",
 	"UUID": "` + uuid + `",
-	"Session": "` + uuid + `_` + ts + `",
-	"TimeStamp": ` + ts + `,
+	"Session": "` + uuid + `_` + strconv.Itoa(ts) + `",
+	"TimeStamp": ` + strconv.Itoa(ts) + `,
 	"Sign": "` + signedData + `",
 	  	"Data": {
 		      "Action": "getPersonList", 
@@ -64,7 +64,7 @@ func GetPersonListFromDevice(payload _models.DeviceAuth) _models.PersonListRespo
 }
 
 func AddPersonListToDevice(payload _models.ListPayload, plist _models.PersonListRequest) string {
-	url := "http://" + deviceIp + ":8011/Request"
+	url := "http://" + payload.Auth.DeviceIP + ":8011/Request"
 
 	jsonBody, err := json.Marshal(&plist)
 	if err != nil {

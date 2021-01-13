@@ -13,22 +13,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SignRequest(payload _models.ListPayload) string {
-	UserName := payload.User
-	PassWord := payload.Password
+func UploadUserDataToDevice(c *gin.Context) {
 
-	uuid := payload.UUID
+	var payload _models.ListPayload
+	UserName := payload.Auth.User
+	PassWord := payload.Auth.Password
+
+	uuid := payload.Auth.UUID
 	ts := int(time.Now().Unix())
 	strData := []byte(uuid + ":" + UserName + ":" + PassWord + ":" + strconv.Itoa(ts))
 	hasher := md5.New()
 	hasher.Write([]byte(strData))
 	signedData := hex.EncodeToString(hasher.Sum(nil))
-	return signedData
-}
-
-func UploadUserDataToDevice(c *gin.Context) {
-
-	var payload _models.ListPayload
 
 	if err := c.ShouldBindJSON(&payload); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -36,8 +32,6 @@ func UploadUserDataToDevice(c *gin.Context) {
 		return
 	}
 	var addPersonRequest _models.PersonListRequest
-
-	signedData := SignRequest(payload)
 
 	for _, employee := range payload.Employee {
 		addPersonRequest.Name = "personListRequest"
@@ -67,6 +61,6 @@ func UploadUserDataToDevice(c *gin.Context) {
 		addPersonRequest.Data.PersonInfo.Label = "HR Verified"
 		addPersonRequest.Data.PersonInfo.PersonPhoto = employee.Photo_Id
 		addPersonRequest.Data.PersonInfo.FeatureValue = "0"
-		_http.AddPersonListToDevice(payload.DeviceIP, addPersonRequest)
+		_http.AddPersonListToDevice(payload, addPersonRequest)
 	}
 }
