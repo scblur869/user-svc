@@ -36,7 +36,7 @@ func UploadUserDataToDevice(c *gin.Context) {
 	for _, employee := range payload.Employee {
 		addPersonRequest.Name = "personListRequest"
 		addPersonRequest.UUID = uuid
-		addPersonRequest.Session = `"` + uuid + `_` + strconv.Itoa(ts) + `"`
+		addPersonRequest.Session = uuid + "_" + strconv.Itoa(ts)
 		addPersonRequest.Timestamp = ts
 		addPersonRequest.Sign = signedData
 		addPersonRequest.Data.Action = "addPerson"
