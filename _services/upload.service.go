@@ -41,7 +41,7 @@ func UploadUserDataToDevice(c *gin.Context) {
 		addPersonRequest.Sign = signedData
 		addPersonRequest.Data.Action = "addPerson"
 		addPersonRequest.Data.PersonType = 2
-		addPersonRequest.Data.FeatureInfo.FeatureType = 1
+		addPersonRequest.Data.FeatureInfo.FeatureType = 3
 		addPersonRequest.Data.PersonInfo.PersonCover = 1
 		addPersonRequest.Data.PersonInfo.PersonId = strconv.Itoa(employee.Id)
 		addPersonRequest.Data.PersonInfo.PersonName = employee.First_Name + " " + employee.Last_Name
