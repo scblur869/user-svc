@@ -33,10 +33,10 @@ type PersonListRequest struct {
 }
 
 type PersonListRequestData struct {
-	Action      string       `json:"action"`
-	PersonType  int          `json:"persontype"`
-	FeatureInfo FeatureSub   `json:"featureinfo"`
-	PersonInfo  []PersonInfo `json:"personinfolist"`
+	Action      string     `json:"action"`
+	PersonType  int        `json:"persontype"`
+	FeatureInfo FeatureSub `json:"featureinfo"`
+	PersonInfo  PersonInfo `json:"personinfo"`
 }
 
 type FeatureSub struct {
