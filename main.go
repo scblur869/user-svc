@@ -4,6 +4,7 @@ package main
 import (
 	"local/user-svc/_data"
 	"local/user-svc/_services"
+	"os"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -11,15 +12,15 @@ import (
 )
 
 func main() {
-
+	allowedHost := os.Getenv("ALLOWED")
 	_data.InitializeUserDatabase()
 	// gin.SetMode(gin.ReleaseMode)
 	// routes
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:4200"},
+		AllowOrigins:     []string{allowedHost},
 		AllowMethods:     []string{"POST", "GET", "OPTIONS"},
-		AllowHeaders:     []string{"Access-Control-Allow-Headers", "Origin", "Accept", "X-Requested-With", "Content-Type", "Authorization", "Access-Control-Request-Method", "Access-Control-Request-Headers"},
+		AllowHeaders:     []string{"Access-Control-Allow-Headers", "Access-Control-Allow-Origin", "Origin", "Accept", "X-Requested-With", "Content-Type", "Authorization", "Access-Control-Request-Method", "Access-Control-Request-Headers"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
