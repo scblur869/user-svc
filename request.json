@@ -1,0 +1,47 @@
+{
+  "Name": "personListRequest",
+  "UUID": "umetid73806u",
+  "Session": "umetid73806u_1614001819",
+  "TimeStamp": 1614001819,
+  "Sign": "b4ea796c9ee0328e205f24c8bb151a42",
+  "Data": {
+    "Action": "addPerson",
+    "PersonType": 2,
+    "FeatureInfo": {
+      "FeatureType": 3
+    },
+    "PersonInfo": {
+      "PersonCover": 1,
+      "PersonId": "0",
+      "PersonName": "brad ross",
+      "Sex": 2,
+      "IDCard": "6456",
+      "Nation": "United States",
+      "Birthday": "08-13-1969",
+      "Phone": "123-123-1234",
+      "Address": "3 fred drive",
+      "LimitTime": 1,
+      "StartTime": "2019-01-01 00:00:00",
+      "EndTime": "2021-01-01 00:00:00",
+      "Label": "HR Verified",
+      "PersonExtension": {
+        "PersonCode1": "",
+        "PersonCode2": "",
+        "PersonCode3": "",
+        "PersonReserveName": "",
+        "PersonParam1": 0,
+        "PersonParam2": 0,
+        "PersonParam3": 0,
+        "PersonParam4": 0,
+        "PersonParam5": 0,
+        "PersonData1": "",
+        "PersonData2": "",
+        "PersonData3": "",
+        "PersonData4": "",
+        "PersonData5": ""
+      },
+      "PersonPhoto": "asdasdf",
+      "FeatureValue": "ZW1wbG95ZWU="
+    }
+  }
+}

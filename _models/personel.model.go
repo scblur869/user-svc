@@ -31,3 +31,8 @@ type DeviceAuth struct {
 type ID struct {
 	Id int `json:"id"`
 }
+
+type FEATUREVALUE struct {
+	Auth  DeviceAuth `json:"auth"`
+	Photo string     `json:"facepicture"`
+}

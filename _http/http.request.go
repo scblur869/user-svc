@@ -94,3 +94,47 @@ func AddPersonListToDevice(payload _models.ListPayload, plist _models.PersonList
 	log.Println(string(prettyJSON.Bytes()))
 	return string(prettyJSON.Bytes())
 }
+
+func GetFeatureValuesFromImage(ip string, user string, pass string, _uuid string, photo string) _models.FeatureValueResponse {
+	url := "http://" + ip + ":8011/Request"
+	var featureValue _models.FeatureValueResponse
+
+	UserName := user
+	PassWord := pass
+	uuid := _uuid
+	ts := int(time.Now().Unix())
+	strData := []byte(uuid + ":" + UserName + ":" + PassWord + ":" + strconv.Itoa(ts))
+	hasher := md5.New()
+	hasher.Write([]byte(strData))
+	signedData := hex.EncodeToString(hasher.Sum(nil))
+
+	var jsonBody = []byte(`
+	{
+	"Name": "faceFeatureValueRequest",
+	"UUID": "` + uuid + `",
+	"Session": "` + uuid + `_` + strconv.Itoa(ts) + `",
+	"TimeStamp": ` + strconv.Itoa(ts) + `,
+	"Sign": "` + signedData + `",
+	  	"Data": {
+		        "FacePicture": "` + photo + `"
+		        }
+	}
+	 `)
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonBody))
+	req.Header.Set("Content-Type", "application/json")
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer resp.Body.Close()
+
+	fmt.Println("response Status:", resp.Status)
+	fmt.Printf("%+v", resp.Header)
+	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("response Body:", string(body))
+
+	json.Unmarshal([]byte(body), &featureValue)
+
+	return featureValue
+}

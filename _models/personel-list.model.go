@@ -33,10 +33,9 @@ type PersonListRequest struct {
 }
 
 type PersonListRequestData struct {
-	Action      string     `json:"Action"`
-	PersonType  int        `json:"PersonType"`
-	FeatureInfo FeatureSub `json:"FeatureInfo"`
-	PersonInfo  PersonInfo `json:"PersonInfo"`
+	Action     string     `json:"Action"`
+	PersonType int        `json:"PersonType"`
+	PersonInfo PersonInfo `json:"PersonInfo"`
 }
 
 type FeatureSub struct {
@@ -91,4 +90,16 @@ type DEVICE struct {
 	ChannelNo   int    `json:"channelno"`
 	VersionDate string `json:"versiondate"`
 	Created     string `json:"created"`
+}
+
+type FeatureValueResponse struct {
+	Name    string           `json:"name"`
+	Data    FeatureValueData `json:"data"`
+	Code    int              `json:"code"`
+	Message string           `json:"message"`
+}
+
+type FeatureValueData struct {
+	FeatureType  int    `json:"featuretype"`
+	FeatureValue string `json:"featurevalue"`
 }

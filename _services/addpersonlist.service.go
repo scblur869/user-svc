@@ -34,6 +34,8 @@ func UploadUserDataToDevice(c *gin.Context) {
 	var addPersonRequest _models.PersonListRequest
 
 	for _, employee := range payload.Employee {
+		//		featureValueResponse := _http.GetFeatureValuesFromImage(payload.Auth.DeviceIP, UserName, PassWord, uuid, employee.Photo_Id)
+		//		fmt.Println(featureValueResponse)
 		addPersonRequest.Name = "personListRequest"
 		addPersonRequest.UUID = uuid
 		addPersonRequest.Session = uuid + "_" + strconv.Itoa(ts)
@@ -41,9 +43,9 @@ func UploadUserDataToDevice(c *gin.Context) {
 		addPersonRequest.Sign = signedData
 		addPersonRequest.Data.Action = "addPerson"
 		addPersonRequest.Data.PersonType = 2
-		addPersonRequest.Data.FeatureInfo.FeatureType = 3
-		addPersonRequest.Data.PersonInfo.PersonCover = 1
-		addPersonRequest.Data.PersonInfo.PersonId = strconv.Itoa(employee.Id)
+		//	addPersonRequest.Data.FeatureInfo.FeatureType = featureValueResponse.Data.FeatureType
+		addPersonRequest.Data.PersonInfo.PersonCover = 0
+		addPersonRequest.Data.PersonInfo.PersonId = employee.Personel_Id
 		addPersonRequest.Data.PersonInfo.PersonName = employee.First_Name + " " + employee.Last_Name
 		if employee.Gender == "Male" {
 			addPersonRequest.Data.PersonInfo.Sex = 1
@@ -55,12 +57,12 @@ func UploadUserDataToDevice(c *gin.Context) {
 		addPersonRequest.Data.PersonInfo.Birthday = employee.Birthdate
 		addPersonRequest.Data.PersonInfo.Phone = employee.Phone
 		addPersonRequest.Data.PersonInfo.Address = employee.Street_Address
-		addPersonRequest.Data.PersonInfo.LimitTime = 1
-		addPersonRequest.Data.PersonInfo.StartTime = "2019-01-01 00:00:00"
-		addPersonRequest.Data.PersonInfo.EndTime = "2021-01-01 00:00:00"
+		addPersonRequest.Data.PersonInfo.LimitTime = 0
+		addPersonRequest.Data.PersonInfo.StartTime = "2021-01-01 00:00:00"
+		addPersonRequest.Data.PersonInfo.EndTime = "2022-01-01 00:00:00"
 		addPersonRequest.Data.PersonInfo.Label = "HR Verified"
 		addPersonRequest.Data.PersonInfo.PersonPhoto = employee.Photo_Id
-		addPersonRequest.Data.PersonInfo.FeatureValue = "ZW1wbG95ZWU="
+		//	addPersonRequest.Data.PersonInfo.FeatureValue = featureValueResponse.Data.FeatureValue
 		_http.AddPersonListToDevice(payload, addPersonRequest)
 	}
 }
